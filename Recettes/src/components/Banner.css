@@ -1,0 +1,23 @@
+.banner {
+  position: relative;
+  background-image: url("https://recette.supertoinette.com/new/2020-02/lasagnes-rapides-oepq-1200.webp");
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.content {
+  position: relative;
+  max-width: 600px;
+  color: rgb(4, 4, 4);
+  padding: 20px;
+}
+
