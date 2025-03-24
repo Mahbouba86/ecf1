@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header';
 import Home from  './pages/Home';
 import DetailRecette from './pages/DetailRecette';
-import  AjoutRecette  from './pages/AjoutRecette';
-import  Recettes  from './pages/Recettes';
+import  {AjoutRecette}  from './pages/AjoutRecette';
+import  {Recettes}  from './pages/Recettes';
 
 import { Favorites } from './pages/Favorites';
 import { Banner } from './components/Banner';

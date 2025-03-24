@@ -16,7 +16,7 @@ function DetailRecette() {
 
   const fetchRecipe = async () => {
     try {
-      const response = await fetch(`/api/recipes/${id}`);
+      const response = await fetch(`http://localhost:3000/api/recipes/${id}`);
       const data = await response.json();
       setRecipe(data); console.log(recipe);
     } catch (error) {

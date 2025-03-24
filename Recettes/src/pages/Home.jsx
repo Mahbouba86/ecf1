@@ -82,7 +82,7 @@ function Home() {
                 <p>⏳ {recipe.preparationTime} min</p>
 
 
-               <Link to={`/DetailRecette/${recipe.id}`}>
+               <Link to={`/recipe/${recipe.id}`}>
   <button>Voir la recette</button>
 </Link>
               </div>
