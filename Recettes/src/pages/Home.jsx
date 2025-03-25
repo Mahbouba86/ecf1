@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Banner } from "../components/Banner";
 import DetailRecette  from "../pages/DetailRecette";
 import "../pages/Home.css";
-import { Link } from "react-router-dom";
+import {ReceipCard} from "../components/Receipe/ReceipeCard";
+import { ReceipList } from "../components/Receipe/ReceipeList";
 
 function Home() {
   const [searchTerm, setSearchTerm] = useState(""); // ✅ Ajout du state pour la recherche
@@ -55,40 +56,10 @@ function Home() {
 
   return (
     <>
-      <div>
-        <span>🔍</span>
-        <input
-          type="text"
-          placeholder="Rechercher une recette..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <button onClick={handleSearch} disabled={loading}>
-          {loading ? "Recherche..." : "Rechercher"}
-        </button>
-      </div>
       <Banner />
       <section>
         <h1>Recettes</h1>
-        <div>
-          {recipes.map((recipe) => (
-            <article key={recipe.id}>
-              <img src={recipe.picture} alt={recipe.name} />
-              <div>
-                <h2>{recipe.name}</h2>
-                <p>
-                  {recipe.type} - {recipe.origin}
-                </p>
-                <p>⏳ {recipe.preparationTime} min</p>
-
-
-               <Link to={`/recipe/${recipe.id}`}>
-  <button>Voir la recette</button>
-</Link>
-              </div>
-            </article>
-          ))}
-        </div>
+       <ReceipList recipes={recipes}/>
       </section>
     </>
   );

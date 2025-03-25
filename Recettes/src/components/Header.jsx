@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../components/Header.css";
 
 export function Header() {
@@ -8,37 +8,58 @@ export function Header() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // const handleSearch = async () => {
-  //   if (!searchTerm.trim()) return;
+  // fonction vider le champs de recherche en on clic
+function ViderChampRecherche () {
+  if (searchTerm.length>0 )
+     {
+      setRecipes([]);
+      setSearchTerm("");
+  }
+}
+  // Déclenche la recherche avec un délai
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchTerm.trim()) {
+        handleSearch();
+      }
+    }, 300); // Attente de 300ms après la dernière touche avant de lancer la recherche
 
-  //   try {
-  //     setLoading(true);
-  //     setError(null);
+    return () => clearTimeout(timer); // Effacer le timer précédent si l'utilisateur tape encore
+  }, [searchTerm]);
 
-  //     const response = await fetch(
-  //       `http://localhost:3000/api/recipes/search/${searchTerm}`
-  //     );
-  //     const data = await response.json();
-  //     setRecipes(data);
-  //   } catch (err) {
-  //     console.log(err);
-  //     setError("Erreur lors de la récupération des recettes.");
-  //     setRecipes([]);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  const handleSearch = async () => {
+if (searchTerm.length >=2)
+     {
+       try {
+        setLoading(true);
+        setError(null);
+        const response = await fetch(
+          `http://localhost:3000/api/recipes/search/${searchTerm}`
+        );
+        const data = await response.json();
+        setRecipes(data);
+      } catch (err) {
+        console.log(err);
+        setError("Erreur lors de la récupération des recettes.");
+        setRecipes([]);
+      } finally {
+        setLoading(false);
+      }
+    }else{
+      setRecipes([]);
+    }
+  };
 
   return (
     <header>
       <div>
         {/* Logo du site */}
         <Link to="/">
-          <span>CuisineConnect</span>
+          <span>Cuisine</span>
         </Link>
 
         {/* Barre de recherche */}
-        {/* <div>
+        <div>
           <span>🔍</span>
           <input
             type="text"
@@ -46,17 +67,17 @@ export function Header() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button onClick={handleSearch} disabled={loading}>
-            {loading ? "Recherche..." : "Rechercher"}
-          </button>
-        </div> */}
+
+        </div>
 
         {/* Affichage des résultats de recherche */}
         {error && <p style={{ color: "red" }}>{error}</p>}
         {recipes.length > 0 ? (
           <ul>
             {recipes.map((recipe, index) => (
-              <li key={index}>{recipe.name}</li>
+              <li key={index}>
+                <Link to={`/recipe/${recipe.id}`}onClick={() => ViderChampRecherche()}>{recipe.name}</Link>
+              </li>
             ))}
           </ul>
         ) : (
@@ -81,4 +102,3 @@ export function Header() {
     </header>
   );
 }
-// export default Header;

@@ -17,6 +17,7 @@ export function AjoutRecette() {
   });
 
   const [message, setMessage] = useState('');
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,7 +25,16 @@ export function AjoutRecette() {
   const handleNumberChange = (e) => {
     setFormData({ ...formData, [e.target.name]: parseInt(e.target.value) });
   };
+  const handleURLChange = (e) => {
+    const value = e.target.value;
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
+    if (!validateUrl(value)) {
+      setError("URL invalide. Exemple: https://example.com");
+    } else {
+      setError("");
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('');
@@ -64,6 +74,14 @@ export function AjoutRecette() {
     setFormData({ ...formData, instructions: newInstructions });
   };
 
+  const validateUrl = (value) => {
+    const urlPattern = /^(https?:\/\/)?([\w-]+(\.[\w-]+)+\/?)([^\s]*)?$/;
+    return urlPattern.test(value);
+  };
+
+
+
+
   return (
     <div className="container">
       <h1 className="title">Ajouter une recette</h1>
@@ -78,11 +96,17 @@ export function AjoutRecette() {
 
         <label>Photo :</label>
         <input
-          type="text"
+          type="url"
           name="picture"
+          pattern="https?://.*"
+          placeholder="Entrez l'URL de l'image (ex: https://example.com)"
+          required
           value={formData.picture}
-          onChange={handleChange}
+          onChange={handleURLChange} 
+          style={{ borderColor: error ? "red" : "black" }}
+
         />
+          {error && <p style={{ color: "red" }}>{error}</p>}
 
         <label>Description :</label>
         <textarea

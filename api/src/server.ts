@@ -393,13 +393,6 @@ app.delete("/api/recipes/:id", (req, res) => {
   res.status(204).send();
 });
 
-app.post("/api/toto", (req, res) => {
-  res.status(200).json({ message: "test post toto" });
-});
-
-app.get("/api/toto", (req, res) => {
-  res.status(200).json({ message: "test post toto 2" });
-});
 
 const PORT = process.env.PORT || 3000;
 app.use(

@@ -7,7 +7,6 @@ import  {AjoutRecette}  from './pages/AjoutRecette';
 import  {Recettes}  from './pages/Recettes';
 
 import { Favorites } from './pages/Favorites';
-import { Banner } from './components/Banner';
 
 
 function App() {
