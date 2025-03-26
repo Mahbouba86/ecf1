@@ -174,7 +174,7 @@ let recipes: Recipe[] = [
       "Démouler après quelques minutes et servir tiède.",
     ],
     preparationTime: 45,
-    type: "Dessert",
+    type: "Dessert", 
     origin: "France",
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -314,6 +314,27 @@ const RecipeSchema = z.object({
 // Obtenir toutes les recettes
 app.get("/api/recipes", (req, res) => {
   res.json(recipes);
+});
+
+// Obtenir toutes les categories
+app.get("/api/categories", (req, res) => {
+  const typesUniques = [...new Set(recipes.map(recette => recette.type))];
+
+  res.json(typesUniques);
+});
+
+// Rechercher toutes les recettes par categorie
+app.get("/api/categories/:category", (req, res) => {
+  const category = req.params.category.toLowerCase();
+  const recipe = recipes.filter((r) => {
+    return (
+      r.type.toLocaleLowerCase() == category
+    );
+  });
+  if (!recipe) {
+    return res.status(404).json({ message: "Recette non trouvée" });
+  }
+  res.json(recipe);
 });
 
 // Obtenir une recette par ID

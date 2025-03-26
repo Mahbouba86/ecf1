@@ -64,7 +64,7 @@ function DetailRecette() {
   return (
     <div className="recipe-container">
       <div className="recipe-card">
-        <div className="image-container">
+        <div className="image-container position-relative">
           <img src={recipe.picture} alt={recipe.name} className="recipe-image" />
           <button onClick={toggleFavorite} className={`favorite-button ${isFavorite ? 'favorite' : ''}`}>
             <Heart className="heart-icon" fill={isFavorite ? 'currentColor' : 'none'} />

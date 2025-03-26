@@ -1,6 +1,15 @@
-body, html {
+/* Général reset des marges et paddings */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: red;
+}
+
+/* Corps et fond de la page */
+body, html {
   height: 100%;
   font-family: Arial, sans-serif;
   background-color: #f9f9f9;
@@ -18,37 +27,75 @@ section {
   background: white;
 }
 
-.Banner {
+/* Bannière */
+.full-width-banner {
   width: 100%;
+  overflow: hidden;
+}
+.Banner {
+  width: 100vw; /* Utilise la largeur totale de la fenêtre */
   height: 300px;
   background-image: url('https://mybody.fr/wp-content/uploads/2024/01/cover-recette-reequilibrage-alimentaire.jpg');
   background-size: cover;
   background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  padding: 20px;
 }
 
+/* Style des titres */
 h1 {
   text-align: center;
   font-size: 2rem;
   margin-bottom: 20px;
 }
 
-/* Grille des recettes */
+/* Conteneur des catégories avec Flexbox */
+.categories-section {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.categories-section button {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.categories-section button:hover {
+  background: #e63946;
+}
+
+/* Grille des recettes (CSS Grid) */
 .recipes-container {
   width: 100%;
   max-width: 1200px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr); /* Affiche 2 colonnes par défaut */
   gap: 20px;
   padding: 0 20px;
 }
 
-/*  responsive */
+/* Responsive : une seule colonne sur petits écrans */
 @media (max-width: 768px) {
   .recipes-container {
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr; /* Passe à une colonne sur petits écrans */
   }
 }
 
+/* Style des articles de recettes */
 article {
   background: white;
   border-radius: 8px;
@@ -79,11 +126,11 @@ h2 {
 
 p {
   font-size: 0.9rem;
-  color: #ffffff;
+  color: #666; /* Texte en gris foncé */
   margin: 5px 0;
 }
 
-/* Bouton */
+/* Boutons */
 button {
   background: #ff6b6b;
   color: white;

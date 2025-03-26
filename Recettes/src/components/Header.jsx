@@ -8,29 +8,26 @@ export function Header() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // fonction vider le champs de recherche en on clic
-function ViderChampRecherche () {
-  if (searchTerm.length>0 )
-     {
+  function ViderChampRecherche() {
+    if (searchTerm.length > 0) {
       setRecipes([]);
       setSearchTerm("");
+    }
   }
-}
-  // Déclenche la recherche avec un délai
+
   useEffect(() => {
     const timer = setTimeout(() => {
       if (searchTerm.trim()) {
         handleSearch();
       }
-    }, 300); // Attente de 300ms après la dernière touche avant de lancer la recherche
+    }, 300);
 
-    return () => clearTimeout(timer); // Effacer le timer précédent si l'utilisateur tape encore
+    return () => clearTimeout(timer);
   }, [searchTerm]);
 
   const handleSearch = async () => {
-if (searchTerm.length >=2)
-     {
-       try {
+    if (searchTerm.length >= 2) {
+      try {
         setLoading(true);
         setError(null);
         const response = await fetch(
@@ -45,50 +42,34 @@ if (searchTerm.length >=2)
       } finally {
         setLoading(false);
       }
-    }else{
+    } else {
       setRecipes([]);
     }
   };
 
   return (
     <header>
-      <div>
-        {/* Logo du site */}
-        <Link to="/">
-          <span>Cuisine</span>
+      <div className="header-container">
+        {/* Logo */}
+        <Link to="/" className="logo">
+          <span>Recettes ECF</span>
         </Link>
 
         {/* Barre de recherche */}
-        <div>
-          <span>🔍</span>
+        <div className="search-container">
           <input
             type="text"
             placeholder="Rechercher une recette..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-
         </div>
 
-        {/* Affichage des résultats de recherche */}
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        {recipes.length > 0 ? (
-          <ul>
-            {recipes.map((recipe, index) => (
-              <li key={index}>
-                <Link to={`/recipe/${recipe.id}`}onClick={() => ViderChampRecherche()}>{recipe.name}</Link>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          searchTerm && !loading && <p>Aucune recette trouvée.</p>
-        )}
-
-        {/* Navigation sous forme de liste */}
+        {/* Navigation */}
         <nav>
           <ul>
             <li>
-              <Link to="/recettes">Liste Recette</Link>
+              <Link to="/">Liste Recette</Link>
             </li>
             <li>
               <Link to="/favorites">Favoris</Link>

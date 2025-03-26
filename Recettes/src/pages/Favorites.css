@@ -1,0 +1,98 @@
+/* Conteneur de chargement */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 64px;
+}
+
+/* Animation de la spinner */
+.spinner {
+  animation: spin 1s linear infinite;
+  border-radius: 50%;
+  height: 48px;
+  width: 48px;
+  border: 2px solid transparent;
+  border-bottom-color: #f97316; /* orange-500 */
+}
+
+/* Animation de la rotation */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Conteneur principal des favoris */
+.favorites-container {
+  margin-top: 24px;
+  padding: 0 16px; /* Espacement horizontal */
+  width: 100%; /* Largeur complète */
+  max-width: 1000px; /* Limite la largeur maximale */
+  margin-left: auto;
+  margin-right: auto; /* Centre le conteneur */
+}
+
+/* Titre des favoris */
+.favorites-title {
+  font-size: 1.875rem; /* Taille du titre */
+  font-weight: bold;
+  color: #1f2937;
+}
+
+/* Texte lorsque aucun favori n'est présent */
+.empty-favorites {
+  text-align: center;
+  color: #4b5563;
+  padding: 32px 0;
+}
+
+/* Lien pour découvrir de nouvelles recettes */
+.discover-link {
+  color: #f97316; /* Couleur orange */
+  text-decoration: none;
+  margin-top: 8px;
+  display: inline-block;
+}
+
+.discover-link:hover {
+  color: #ea580c; /* Couleur orange au survol */
+}
+
+/* Nouveau conteneur pour les recettes favorites */
+.favorites-recipes-container {
+  display: flex;
+  flex-wrap: wrap; /* Permet de passer à la ligne suivante si nécessaire */
+  gap: 24px; /* Espacement entre les éléments */
+  justify-content: center; /* Centre les éléments horizontalement */
+  padding: 16px;
+}
+
+/* Chaque recette aura une taille de 45% de la largeur pour permettre 2 recettes par ligne */
+.recipe-item {
+  flex: 0 0 45%; 
+  border: 1px solid #e5e7eb; 
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.recipe-item:hover {
+  transform: scale(1.05); 
+}
+
+/* Sur tablettes : 2 recettes par ligne */
+@media (max-width: 1024px) {
+  .recipe-item {
+    flex: 0 0 48%; /* 2 recettes par ligne */
+  }
+}
+
+/* Sur mobile : une recette par ligne */
+@media (max-width: 768px) {
+  .recipe-item {
+    flex: 0 0 100%; /* 1 recette par ligne */
+  }
+}
