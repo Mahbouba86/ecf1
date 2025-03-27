@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ReceipList } from '../components/Composants/ReceipeList';
-import FavoriteButton from '../components/Composants/FavoriteButton'; // Importation du composant
+import FavoriteButton from '../components/Composants/FavoriteButton'; 
 import '../pages/Favorites.css';
 
 export function Favorites() {

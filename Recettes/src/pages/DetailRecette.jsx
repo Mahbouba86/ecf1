@@ -1,48 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Heart } from 'lucide-react';
+import FavoriteButton from '../components/Composants/FavoriteButton';
 import './DetailRecette.css';
 
 function DetailRecette() {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     fetchRecipe();
-    checkIfFavorite();
   }, [id]);
 
   const fetchRecipe = async () => {
     try {
       const response = await fetch(`http://localhost:3000/api/recipes/${id}`);
       const data = await response.json();
-      setRecipe(data); console.log(recipe);
+      setRecipe(data);
     } catch (error) {
       console.error('Error fetching recipe:', error);
     } finally {
       setLoading(false);
     }
-  };
-
-  const checkIfFavorite = () => {
-    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-    setIsFavorite(favorites.includes(id));
-  };
-
-  const toggleFavorite = () => {
-    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-    let newFavorites;
-    
-    if (isFavorite) {
-      newFavorites = favorites.filter(favId => favId !== id);
-    } else {
-      newFavorites = [...favorites, id];
-    }
-    
-    localStorage.setItem('favorites', JSON.stringify(newFavorites));
-    setIsFavorite(!isFavorite);
   };
 
   if (loading) {
@@ -54,11 +33,7 @@ function DetailRecette() {
   }
 
   if (!recipe) {
-    return (
-      <div className="not-found">
-        Recette non trouvée
-      </div>
-    );
+    return <div className="not-found">Recette non trouvée</div>;
   }
 
   return (
@@ -66,14 +41,12 @@ function DetailRecette() {
       <div className="recipe-card">
         <div className="image-container position-relative">
           <img src={recipe.picture} alt={recipe.name} className="recipe-image" />
-          <button onClick={toggleFavorite} className={`favorite-button ${isFavorite ? 'favorite' : ''}`}>
-            <Heart className="heart-icon" fill={isFavorite ? 'currentColor' : 'none'} />
-          </button>
+          <FavoriteButton recipeId={id} />
         </div>
-        
+
         <div className="recipe-details">
           <h1 className="recipe-title">{recipe.name}</h1>
-          
+
           <div className="recipe-info">
             <span>Type: {recipe.type}</span>
             <span>Origine: {recipe.origin}</span>

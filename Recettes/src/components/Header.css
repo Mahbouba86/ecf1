@@ -14,6 +14,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative; /* Ajouté pour permettre l'affichage des résultats de recherche en position absolue */
 }
 
 /* Logo */
@@ -23,7 +24,7 @@ header {
   color: #333;
   text-decoration: none;
   font-family: 'Pacifico', cursive;
-
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Ombre douce pour le logo */
 }
 
 .logo:hover {
@@ -38,11 +39,8 @@ header {
   padding: 5px 15px;
   border-radius: 30px;
   border: 1px solid #ccc;
-}
-
-.search-container span {
-  font-size: 1.2rem;
-  margin-right: 8px;
+  position: relative;
+  z-index: 1; /* Assurer que la barre de recherche est toujours au-dessus des résultats */
 }
 
 .search-container input {
@@ -53,7 +51,52 @@ header {
 }
 
 .search-container input:focus {
-  border: none;
+  outline: none;
+  border: 1px solid #ff5900;  /* Change la couleur de la bordure au focus */
+  box-shadow: 0 0 5px rgba(255, 89, 0, 0.5); /* Ajoute une légère ombre autour du champ */
+}
+
+/* Résultats de la recherche */
+.search-results {
+  background-color: white;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+  max-height: 250px; /* Limiter la hauteur des résultats */
+  overflow-y: auto;  /* Ajout d'un défilement vertical si nécessaire */
+  border-radius: 5px;
+  width: 100%;
+  position: absolute;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre légère autour des résultats */
+  max-width: 300px; /* Optionnel : Limiter la largeur des résultats */
+  top: 50px;
+}
+
+.search-results ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.search-results li {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.search-results li:hover {
+  background-color: #f0f0f0;
+}
+
+.search-results li a {
+  color: #333;
+  text-decoration: none;
+  display: block;
+  padding: 8px;
+}
+
+.search-results li a:hover {
+  background-color: #ff5900;
+  color: #fff;
 }
 
 /* Navigation */
@@ -69,12 +112,13 @@ nav ul li a {
   color: #333;
   padding: 8px 12px;
   border-radius: 20px;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 nav ul li a:hover {
   background-color: #ff5900;
   color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre au survol pour les liens */
 }
 
 /* Responsivité */
@@ -86,6 +130,11 @@ nav ul li a:hover {
 
   .search-container {
     margin-top: 10px;
+    width: 100%;
+  }
+
+  .search-container input {
+    width: 100%;  /* Assurer que le champ de recherche utilise toute la largeur */
   }
 
   nav ul {

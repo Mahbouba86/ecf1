@@ -19,6 +19,8 @@ export function Header() {
     const timer = setTimeout(() => {
       if (searchTerm.trim()) {
         handleSearch();
+      } else {
+        setRecipes([]); // Effacer les suggestions lorsque le champ est vidé
       }
     }, 300);
 
@@ -64,6 +66,21 @@ export function Header() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
+
+        {/* Résultats de la recherche */}
+        {loading && <p>Chargement...</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        {recipes.length > 0 && (
+          <div className="search-results">
+            <ul>
+              {recipes.map((recipe) => (
+                <li key={recipe.id}>
+                  <Link to={`/recipe/${recipe.id}`}>{recipe.name}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {/* Navigation */}
         <nav>

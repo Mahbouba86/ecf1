@@ -4,12 +4,12 @@ export function ReceipList ({recipes}) {
     
     return (
        <>
-       {recipes.map((r) => (
-            <div>
-              <ReceipCard recipe={r}/>
-          </div>
+      {recipes.map((r) => (
+  <div key={r.id}>
+    <ReceipCard recipe={r} />
+  </div>
           ))}
           </>
     )
 }
-export default ReceipCard;
+export default ReceipList;
